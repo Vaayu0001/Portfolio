@@ -19,17 +19,19 @@ export function Skills() {
             <EmptyState message="No skill groups are configured yet." />
           </div>
         ) : (
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {skillGroups.map((group) => (
               <section
-                className="rounded-card border border-line bg-surface p-6 shadow-soft"
+                className="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl"
                 key={group.title}
               >
-                <h3 className="text-xl font-extrabold text-ink">{group.title}</h3>
-                <div className="mt-5 flex flex-wrap gap-2">
+                <h3 className="text-lg font-bold tracking-tight text-ink transition-colors duration-300 group-hover:text-accent">{group.title}</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
                   {group.skills.map((skill) => (
                     <Badge
-                      className={isPlaceholder(skill) ? "border-accent text-accent" : ""}
+                      className={`transition-all duration-300 group-hover:scale-105 ${
+                        isPlaceholder(skill) ? "border-accent text-accent" : ""
+                      }`}
                       key={skill}
                     >
                       {isPlaceholder(skill) ? "Resume skills pending" : skill}
