@@ -1,0 +1,13 @@
+:root {
+  --page: #f7f8f4;
+  --surface: #ffffff;
+  --ink: #151712;
+  --muted: #5f675c;
+  --line: #d9dfd4;
+  --accent: #0f766e;
+  --accent-strong: #0b5f59;
+  --accent-soft: #d8f3ee;
+  --shadow-soft: 0 20px 70px rgba(21, 23, 18, 0.08);
+  --shadow-lift: 0 18px 45px rgba(15, 118, 110, 0.16);
+  --radius-card: 8px;
+}
