@@ -22,14 +22,14 @@ export function Skills() {
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {skillGroups.map((group) => (
               <section
-                className="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl"
+                className="group rounded-[var(--radius-card)] border border-[#d9cfbc] bg-[linear-gradient(160deg,#fffdf8,#f5ede1)] p-5 shadow-soft transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lift"
                 key={group.title}
               >
                 <h3 className="text-lg font-bold tracking-tight text-ink transition-colors duration-300 group-hover:text-accent">{group.title}</h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {group.skills.map((skill) => (
                     <Badge
-                      className={`transition-all duration-300 group-hover:scale-105 ${
+                      className={`transition-all duration-300 group-hover:scale-[1.03] ${
                         isPlaceholder(skill) ? "border-accent text-accent" : ""
                       }`}
                       key={skill}

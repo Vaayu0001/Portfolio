@@ -13,7 +13,7 @@ export const profile: Profile = {
   github: "https://github.com/Vaayu0001",
   linkedin: "www.linkedin.com/in/adarsh-singh-90a47132a",
   siteUrl: "https://adarsh-singh-portfolio.vercel.app",
-  resumePath: "/resume.pdf",
+  resumePath: "/ADARSH_RESUME.pdf",
   availability:
     "Open to internships, project collaborations, and software engineering opportunities.",
   highlights: [

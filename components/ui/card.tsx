@@ -10,7 +10,10 @@ export function Card({
 }) {
   return (
     <article
-      className={cn("rounded-card border border-line bg-surface shadow-soft", className)}
+      className={cn(
+        "rounded-[var(--radius-card)] border border-line bg-surface shadow-soft",
+        className,
+      )}
     >
       {children}
     </article>

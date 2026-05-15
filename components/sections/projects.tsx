@@ -9,12 +9,13 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { MetricCard } from "@/components/ui/metric-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { projects } from "@/content/projects";
+import type { Project } from "@/content/types";
 import Image from "next/image";
 
 export function Projects() {
   const featuredProjects = projects.filter((project) => project.featured);
 
-  const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -58,8 +59,8 @@ export function Projects() {
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    (e.currentTarget as HTMLElement).style.setProperty("--mx", `${x / 20}px`);
-    (e.currentTarget as HTMLElement).style.setProperty("--my", `${y / 20}px`);
+    (e.currentTarget as HTMLElement).style.setProperty("--mx", `${x / 26}px`);
+    (e.currentTarget as HTMLElement).style.setProperty("--my", `${y / 26}px`);
   };
 
   const handleMouseLeave = (e: MouseEvent<HTMLDivElement>) => {
@@ -83,92 +84,89 @@ export function Projects() {
         ) : (
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project, index) => {
-              const imgSrc = ("image" in project && typeof project.image === "string") ? project.image : "/images/projects/placeholder.jpg";
+              const imgSrc = project.imageUrl || "/images/projects/placeholder.jpg";
               return (
-              <Card
-                className="group cursor-pointer relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.01] animate-fade-in-up"
-                key={project.title ?? index}
-              >
-                <div
-                  className="cursor-pointer"
-                  onClick={() => setSelectedProject(project)}
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
-                  style={
-                    {
-                      transform: "translate(var(--mx, 0px), var(--my, 0px))",
-                      animationDelay: `${index * 80}ms`
-                    } as CSSProperties
-                  }
+                <Card
+                  className="group relative cursor-pointer overflow-hidden border-[#d8cfbf] bg-[linear-gradient(155deg,#ffffff,#f6f0e5)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lift animate-fade-in-up"
+                  key={project.title ?? index}
                 >
-                <div className="grid gap-0">
-                  <div className="relative h-40 w-full overflow-hidden">
-                    <Image
-                      src={imgSrc}
-                      alt={project.title ?? "project image"}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  </div>
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </div>
-                  <div className="relative z-10 p-5 md:p-6 transition-transform duration-300 group-hover:translate-y-[-2px]">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <Badge>{index === 0 ? "Flagship" : "Project"}</Badge>
-                      <span className="text-sm font-bold text-muted">
-                        {project.subtitle ?? ""}
-                      </span>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => setSelectedProject(project)}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    style={
+                      {
+                        transform: "translate(var(--mx, 0px), var(--my, 0px))",
+                        animationDelay: `${index * 80}ms`,
+                      } as CSSProperties
+                    }
+                  >
+                    <div className="grid gap-0">
+                      <div className="relative h-44 w-full overflow-hidden border-b border-line">
+                        <Image
+                          src={imgSrc}
+                          alt={project.title ?? "project image"}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#26201a]/45 via-transparent to-transparent" />
+                      </div>
+                      <div className="relative z-10 p-5 md:p-6">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <Badge>{index === 0 ? "Flagship" : "Project"}</Badge>
+                          <span className="text-sm font-semibold text-muted">
+                            {project.subtitle ?? ""}
+                          </span>
+                        </div>
+                        <h3 className="mt-4 font-display text-3xl tracking-tight text-ink transition-colors duration-300 group-hover:text-accent">
+                          {project.title}
+                        </h3>
+                        <div className="mt-6 flex flex-wrap gap-2">
+                          {project.repoUrl ? (
+                            <ButtonLink
+                              onClick={(e) => e.stopPropagation()}
+                              className="transition-transform duration-300 group-hover:translate-y-[-1px]"
+                              eventName="project_open"
+                              eventPayload={{ project: project.title ?? "project", type: "repo" }}
+                              href={project.repoUrl}
+                              rel="noreferrer"
+                              target="_blank"
+                              variant="primary"
+                            >
+                              <GitBranch aria-hidden="true" size={18} />
+                              View repo
+                            </ButtonLink>
+                          ) : null}
+                          {project.demoUrl ? (
+                            <ButtonLink
+                              onClick={(e) => e.stopPropagation()}
+                              className="transition-transform duration-300 group-hover:translate-y-[-1px]"
+                              eventName="project_open"
+                              eventPayload={{ project: project.title, type: "demo" }}
+                              href={project.demoUrl}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              <ExternalLink aria-hidden="true" size={18} />
+                              Live demo
+                            </ButtonLink>
+                          ) : null}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedProject(project);
+                            }}
+                            className="rounded-[var(--radius-button)] border border-line bg-surface px-4 py-2 text-sm font-semibold text-ink shadow-soft transition duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-lift"
+                          >
+                            View Details
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="mt-4 font-display text-3xl tracking-tight text-ink transition-colors duration-300 group-hover:text-accent">
-                      {project.title}
-                    </h3>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {project.repoUrl ? (
-                        <ButtonLink
-                          onClick={(e) => e.stopPropagation()}
-                          className="transition-transform duration-300 group-hover:translate-y-[-1px]"
-                          eventName="project_open"
-                          eventPayload={{ project: project.title ?? "project", type: "repo" }}
-                          href={project.repoUrl}
-                          rel="noreferrer"
-                          target="_blank"
-                          variant="primary"
-                        >
-                          <GitBranch aria-hidden="true" size={18} />
-                          View repo
-                        </ButtonLink>
-                      ) : null}
-                      {project.demoUrl ? (
-                        <ButtonLink
-                          onClick={(e) => e.stopPropagation()}
-                          className="transition-transform duration-300 group-hover:translate-y-[-1px]"
-                          eventName="project_open"
-                          eventPayload={{ project: project.title, type: "demo" }}
-                          href={project.demoUrl}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          <ExternalLink aria-hidden="true" size={18} />
-                          Live demo
-                        </ButtonLink>
-                      ) : null}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedProject(project);
-                        }}
-                        className="px-4 py-2 text-sm font-medium rounded-lg border border-white/10 bg-white/5 backdrop-blur hover:bg-white/10 transition-all duration-300"
-                      >
-                        View Details
-                      </button>
-                    </div>
                   </div>
-                </div>
-                </div>
-              </Card>
+                </Card>
               );
             })}
           </div>
@@ -176,7 +174,7 @@ export function Projects() {
       </div>
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/40 backdrop-blur-sm animate-fade-in"
+          className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#120f0b]/45 backdrop-blur-[2px]"
           onClick={handleClose}
         >
           <div
@@ -185,7 +183,7 @@ export function Projects() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
-            className="relative w-[90%] max-w-2xl rounded-2xl border border-white/10 bg-surface p-6 shadow-2xl transform transition-all duration-300 ease-out animate-modal-in"
+            className="animate-modal-in relative w-[90%] max-w-2xl transform rounded-2xl border border-[#d9cfbc] bg-[linear-gradient(160deg,#fffdf8,#f6efe3)] p-6 shadow-[0_24px_50px_rgba(24,18,13,0.24)] transition-all duration-300 ease-out"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 id="project-modal-title" className="text-2xl font-bold text-ink">
@@ -214,7 +212,7 @@ export function Projects() {
             </p>
 
             <dl className="mt-5 grid gap-3 sm:grid-cols-3">
-              {(selectedProject.metrics ?? []).map((metric: any) => (
+              {(selectedProject.metrics ?? []).map((metric) => (
                 <MetricCard key={metric.label} metric={metric} />
               ))}
             </dl>

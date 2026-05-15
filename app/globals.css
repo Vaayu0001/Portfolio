@@ -23,7 +23,9 @@
 
 body {
   background:
-    linear-gradient(180deg, rgba(15, 118, 110, 0.08), transparent 580px), var(--page);
+    radial-gradient(140% 120% at 0% -10%, rgba(138, 106, 47, 0.12), transparent 45%),
+    radial-gradient(120% 80% at 100% 10%, rgba(138, 106, 47, 0.08), transparent 40%),
+    var(--page);
   color: var(--ink);
   font-family: var(--font-sans), sans-serif;
 }
@@ -69,8 +71,8 @@ button:focus-visible {
 
 .surface-grid {
   background-image:
-    linear-gradient(rgba(21, 23, 18, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(21, 23, 18, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(97, 92, 85, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(97, 92, 85, 0.13) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
@@ -161,17 +163,4 @@ button:focus-visible {
 
 .animate-fade-out {
   animation: fade-out 0.2s ease-in forwards;
-}
-
-@keyframes pulse-subtle {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(99,102,241,0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgba(99,102,241,0);
-  }
-}
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 2.5s ease-in-out infinite;
 }

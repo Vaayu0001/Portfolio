@@ -18,7 +18,7 @@ export const experience: ExperienceEntry[] = [
   {
     title: "Bachelor of Technology in Computer Science",
     organization: "SRM Institute of Science and Technology",
-    period: "2022 - Present",
+    period: "2024 - Present",
     summary:
       "Pursuing a degree with a focus on Data Structures, full-stack development, and applied artificial intelligence. Actively building projects and strengthening problem-solving skills through practical implementation.",
   },

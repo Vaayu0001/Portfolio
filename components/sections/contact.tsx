@@ -1,13 +1,10 @@
-import { GitBranch, Link, Mail } from "lucide-react";
+import { GitBranch, Link } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { CopyEmailButton } from "@/components/ui/copy-email-button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { profile } from "@/content/profile";
-import { isPlaceholder } from "@/lib/utils";
 
 export function Contact() {
-  const emailHref = isPlaceholder(profile.email) ? "#contact" : `mailto:${profile.email}`;
-
   return (
     <section className="border-y border-line bg-surface py-24" id="contact">
       <div className="section-shell grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
@@ -35,10 +32,6 @@ export function Contact() {
           >
             <Link aria-hidden="true" size={18} />
             LinkedIn
-          </ButtonLink>
-          <ButtonLink href={emailHref} variant="ghost">
-            <Mail aria-hidden="true" size={18} />
-            Email
           </ButtonLink>
         </div>
       </div>

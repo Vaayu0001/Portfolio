@@ -7,13 +7,15 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "ghost";
 
 const variants: Record<Variant, string> = {
-  primary: "border-accent bg-accent text-white shadow-lift hover:bg-accent-strong",
-  secondary: "border-line bg-surface text-ink hover:border-accent hover:text-accent",
-  ghost: "border-transparent bg-transparent text-ink hover:bg-accent-soft",
+  primary:
+    "border-accent bg-accent text-white shadow-soft hover:-translate-y-0.5 hover:bg-accent-strong hover:shadow-lift",
+  secondary:
+    "border-line bg-surface text-ink shadow-soft hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-lift",
+  ghost: "border-transparent bg-transparent text-ink hover:bg-accent-soft hover:text-accent",
 };
 
 const base =
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-md border px-4 py-2 text-sm font-bold transition duration-200";
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-[var(--radius-button)] border px-4 py-2 text-sm font-semibold transition duration-200";
 
 type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;

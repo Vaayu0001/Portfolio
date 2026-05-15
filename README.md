@@ -39,7 +39,7 @@ Replace placeholders in:
 
 Do not add mobile number, Class 10 marks, Class 12 marks, or CGPA.
 
-Replace `public/resume.pdf` with a sanitized resume PDF before publishing.
+Replace `public/A>RESUME.pdf` with a sanitized resume PDF before publishing.
 
 ## Deployment
 
